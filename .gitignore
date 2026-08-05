@@ -1,0 +1,4 @@
+resultado.txt
+__pycache__/
+*.pyc
+padron.db
