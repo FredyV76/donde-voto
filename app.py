@@ -392,3 +392,6 @@ def home(request: Request, cedula: str = ""):
         resultado_html=resultado_html,
         autofocus_attr=autofocus_attr
     )
+@app.head("/")
+def home_head():
+    return HTMLResponse(content="", status_code=200)
