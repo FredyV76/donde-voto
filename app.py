@@ -304,13 +304,13 @@ PAGINA_BASE = """
 
   <div class="carnet">
     <div class="carnet-header">
-      <span class="marca">Consulta de local de votación</span>
-      <span class="sello">✓</span>
+      <span class="marca">Elección Municipal - Villa Elisa</span>
+      <span class="sello">fv</span>
     </div>
     <div class="carnet-body">
       <form method="get" action="/">
         <label class="campo-label" for="cedula">N.º de cédula</label>
-        <input type="text" id="cedula" name="cedula" placeholder="0.000.000" value="{cedula_valor}" inputmode="numeric" autofocus>
+        <input type="text" id="cedula" name="cedula" placeholder="0.000.000" value="{cedula_valor}" inputmode="numeric" {autofocus_attr}>
         <div class="ayuda">Podés escribirla con o sin puntos.</div>
         <button type="submit">Buscar</button>
       </form>
@@ -383,9 +383,12 @@ def home(request: Request, cedula: str = ""):
                     tipo_voto=tipo_voto_texto
                 )
             else:
-                resultado_html = RESULTADO_MSG.format(
-                    clase="error",
-                    texto=f"❌ No se encontró la cédula {cedula_limpia}. Verificá que esté bien escrita."
-                )
+                resultado_html = f'<div class="resultado error">❌ No se encontró la cédula {cedula_limpia}. Verificá que esté bien escrita.</div>'
 
-    return PAGINA_BASE.format(cedula_valor=cedula_original, resultado_html=resultado_html)
+    autofocus_attr = "" if cedula_original else "autofocus"
+
+    return PAGINA_BASE.format(
+        cedula_valor=cedula_original,
+        resultado_html=resultado_html,
+        autofocus_attr=autofocus_attr
+    )
